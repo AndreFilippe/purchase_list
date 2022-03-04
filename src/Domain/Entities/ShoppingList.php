@@ -6,7 +6,7 @@ class ShoppingList
 {
     private array $items = [];
 
-    public function __construct(private string $name)
+    public function __construct(public readonly string $name)
     {
     }
 

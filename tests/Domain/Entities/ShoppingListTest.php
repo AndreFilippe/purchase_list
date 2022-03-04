@@ -5,6 +5,7 @@ namespace Test\Domain\Entities;
 use App\Domain\Entities\Item;
 use App\Domain\Entities\Product;
 use App\Domain\Entities\ShoppingList;
+use Exception;
 use Test\TestCase;
 
 /**
@@ -23,6 +24,15 @@ class ShoppingListTest extends TestCase
         $this->shoppingList = new ShoppingList('bar');
         $this->product = new Product('foo');
         $this->item = new Item($this->product, 1.0);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldNotChangeName()
+    {
+        $this->expectError();
+        $this->shoppingList->name = 'foo';
     }
 
     /**
