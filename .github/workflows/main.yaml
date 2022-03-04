@@ -16,8 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Setting up PHP
-        uses: ./
+      - name: Install PHP 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          coverage: xdebug
 
       - name: Installing Composer
         run: composer install --no-ansi --no-interaction --no-suggest --prefer-dist
