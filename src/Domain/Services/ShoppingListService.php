@@ -11,7 +11,7 @@ class ShoppingListService
     {
     }
 
-    public function create(string $name): ShoppingList
+    public function create(Name $name): ShoppingList
     {
         return $this->shoppingListRepositories->save(new ShoppingList($name));
     }

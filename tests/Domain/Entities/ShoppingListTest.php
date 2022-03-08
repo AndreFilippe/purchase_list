@@ -3,9 +3,9 @@
 namespace Test\Domain\Entities;
 
 use App\Domain\Entities\Item;
+use App\Domain\Entities\Name;
 use App\Domain\Entities\Product;
 use App\Domain\Entities\ShoppingList;
-use Exception;
 use Test\TestCase;
 
 /**
@@ -21,7 +21,7 @@ class ShoppingListTest extends TestCase
     {
         parent::setUp();
 
-        $this->shoppingList = new ShoppingList('bar');
+        $this->shoppingList = new ShoppingList(new Name('bar'));
         $this->product = new Product('foo');
         $this->item = new Item($this->product, 1.0);
     }
