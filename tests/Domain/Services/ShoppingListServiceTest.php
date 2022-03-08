@@ -18,9 +18,6 @@ class ShoppingListServiceTest extends TestCase
     public function setUp(): void
     {
         $this->shoppingListRepositories = $this->createMock(ShoppingListRepositories::class);
-
-        $this->shoppingListRepositories->method('save')
-            ->willReturn(new ShoppingList('foo'));
     }
     /**
      * @test
@@ -38,8 +35,37 @@ class ShoppingListServiceTest extends TestCase
         $this->assertEquals(new Name('foo'), $shoppingList->name);
     }
 
-        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+    /**
+     * @test
+     */
+    public function itShouldReturnArrayWithShoppingList()
+    {
+        $this->shoppingListRepositories->method('get')
+            ->willReturn([
+                new ShoppingList(new Name('foo')),
+                new ShoppingList(new Name('bar'))
+            ]);
 
-        $this->assertEquals('foo', $shoppingList->name);
+        $shoppingListService = new ShoppingListService($this->shoppingListRepositories);
+        $arrayShoppingList = $shoppingListService->get();
+
+        foreach ($arrayShoppingList as $shoppingList) {
+            $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnShoppingListWhenSetParam()
+    {
+        $this->shoppingListRepositories->method('get')
+            ->with($this->equalTo('foo'))
+            ->willReturn(new ShoppingList(new Name('foo')));
+
+        $shoppingListService = new ShoppingListService($this->shoppingListRepositories);
+        $shoppingList = $shoppingListService->get('foo');
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
     }
 }
